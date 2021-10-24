@@ -5,13 +5,14 @@ const db = require("../Shared/mongo");
 const service = {
   async getWords(req, res) {
     try {
-      const getWord = await db.words.find().toArray();
-      console.log(getWord);
+      const getWord = await db.words.findOne({ email: req.body.email });
 
-      res.status(200).send({ alert: "data recieved", getWord });
+      if (getWord) {
+        res.status(200).send(getWord);
+        console.log(getWord);
+      } else res.status(400).send({ error: "Error in data " });
     } catch (err) {
-      res.status(400).send({ error: err });
-      console.log("error in getting data", err);
+      console.log("error in getting data", err.message);
     }
   },
 

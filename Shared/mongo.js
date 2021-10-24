@@ -3,6 +3,7 @@ const { MongoClient } = require("mongodb");
 // const URL =
 //   "mongodb+srv://muthu:muthu123@cluster1.q9tm6.mongodb.net/dictionary?retryWrites=true&w=majority";
 // const DB_NAME = "dictionary";
+
 const client = new MongoClient(process.env.URL);
 
 module.exports = {
@@ -17,7 +18,7 @@ module.exports = {
 
       // database selected
       this.database = client.db(process.env.DB_NAME);
-      console.log(`${process.env.DB_NAME} selected successfully`);
+      console.log("DB selected successfully", process.env.DB_NAME);
 
       //collection selected;
       this.words = this.database.collection("words");

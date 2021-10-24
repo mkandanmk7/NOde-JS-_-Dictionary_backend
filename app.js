@@ -13,20 +13,21 @@ const app = express();
 
 // IFEE
 (async () => {
-  await mongo.connectDB();
+  try {
+    await mongo.connectDB();
 
-  app.use(express.json());
+    app.use(express.json());
 
-  app.use((req, res, next) => {
-    console.log("common middle ware called");
-    next();
+    app.use((req, res, next) => {
+      console.log("common middle ware called");
+      next();
 
-    app.use("/words", wordsData);
-  });
+      app.use("/words", wordsData);
+    });
 
-  //
-
-  app.listen(process.env.PORT, () =>
-    console.log(`Server started at ${process.env.PORT}`)
-  );
+    //start the server in port
+    app.listen(PORT, () => console.log(`Server started at ${PORT}`));
+  } catch (err) {
+    console.log("Error in : server starting...");
+  }
 })();
